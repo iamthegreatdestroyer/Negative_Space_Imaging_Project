@@ -165,8 +165,11 @@ export function createApp(options: ServerOptions = {}): Express {
   app.use('/health', healthRouter);
   app.use('/', healthRouter); // Also available at root for Kubernetes probes
 
-  // API v1 routes with all endpoints
-  app.use(`/api/v${config.server.apiVersion}`, apiRoutes);
+  // API v1 routes
+  const apiV1 = express.Router();
+
+  // Mount API v1 routes
+  app.use(`/api/v${config.server.apiVersion}`, apiV1);
 
   // ============================================================================
   // APPLY CUSTOM ROUTES
