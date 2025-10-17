@@ -3,7 +3,7 @@
 # Multi-service orchestration for Negative Space Imaging Project
 # ============================================================================
 
-version: "3.8"
+version: '3.8'
 
 networks:
   app-network:
@@ -45,11 +45,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-negative_space}",
-        ]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-negative_space}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -103,31 +99,31 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 3000
       LOG_LEVEL: ${LOG_LEVEL:-info}
-
+      
       # Database
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_NAME: ${DB_NAME:-negative_space}
-
+      
       # Redis
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD:-}
-
+      
       # JWT
       JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
       JWT_EXPIRE: ${JWT_EXPIRE:-7d}
-
+      
       # API Config
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost}
       API_RATE_LIMIT: ${API_RATE_LIMIT:-100}
       MAX_FILE_SIZE: ${MAX_FILE_SIZE:-104857600}
-
+      
       # Python Analyzer
       PYTHON_ANALYZER_URL: http://python-analyzer:5000
-
+      
       # Monitoring
       PROMETHEUS_ENABLED: "true"
     ports:
@@ -154,6 +150,13 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    resources:
+      limits:
+        cpus: '1'
+        memory: 512M
+      reservations:
+        cpus: '0.5'
+        memory: 256M
 
   # =========================================================================
   # React Frontend with Nginx
@@ -185,6 +188,13 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    resources:
+      limits:
+        cpus: '0.5'
+        memory: 256M
+      reservations:
+        cpus: '0.25'
+        memory: 128M
 
   # =========================================================================
   # Python Analyzer Service
@@ -229,6 +239,13 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    resources:
+      limits:
+        cpus: '2'
+        memory: 1G
+      reservations:
+        cpus: '1'
+        memory: 512M
 
   # =========================================================================
   # Prometheus Monitoring
@@ -238,11 +255,11 @@ services:
     container_name: nsip-prometheus
     restart: unless-stopped
     command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
-      - "--web.console.templates=/usr/share/prometheus/consoles"
-      - "--storage.tsdb.retention.time=30d"
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
     ports:
       - "9090:9090"
     volumes:
@@ -325,3 +342,23 @@ services:
         max-file: "3"
     profiles:
       - prod-like
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana:8.2.0
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:
+  grafana-data:
