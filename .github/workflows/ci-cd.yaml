@@ -53,7 +53,7 @@ jobs:
           fi
       - name: Run tests
         run: |
-          if [ -d tests ] || [ -f test_*.py ] || [ -f *_test.py ]; then
+          if [ -d tests ] || compgen -G "test_*.py" > /dev/null || compgen -G "*_test.py" > /dev/null; then
             echo "Running pytest"
             pytest --cov=. --cov-report=xml
           else
