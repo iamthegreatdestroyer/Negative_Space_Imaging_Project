@@ -31,3 +31,5 @@ main().catch((error) => {
   console.error('Fatal error:', error);
   process.exit(1);
 });
+  process.exit(1);
+});

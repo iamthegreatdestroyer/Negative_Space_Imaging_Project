@@ -31,3 +31,23 @@ main().catch((error) => {
   console.error('Fatal error:', error);
   process.exit(1);
 });
+        logger.error('Could not close connections in time, forcefully shutting down');
+        process.exit(1);
+      }, 10000);
+    };
+
+    // Listen for termination signals
+    process.on('SIGTERM', () => shutdownGracefully('SIGTERM'));
+    process.on('SIGINT', () => shutdownGracefully('SIGINT'));
+    
+  } catch (error) {
+    logger.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+// Start the application
+startServer().catch((error) => {
+  console.error('Unhandled error during startup:', error);
+  process.exit(1);
+});
