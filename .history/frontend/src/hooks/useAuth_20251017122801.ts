@@ -5,7 +5,7 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 /**
  * Decoded JWT payload structure
@@ -108,80 +108,74 @@ export const useAuth = (): UseAuthReturn => {
   /**
    * Login user with email and password
    */
-  const login = useCallback(
-    async (email: string, password: string) => {
-      try {
-        setLoading(true);
-        setError(null);
+  const login = useCallback(async (email: string, password: string) => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        const response = await fetch(`${API_URL}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        });
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
-        if (!response.ok) {
-          const data = await response.json();
-          throw new Error(data.message || 'Login failed');
-        }
-
-        const data: { data: AuthResponse } = await response.json();
-        const { accessToken, refreshToken, user: userData } = data.data;
-
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('user', JSON.stringify(userData));
-
-        setUser(userData);
-      } catch (err) {
-        const message = err instanceof Error ? err.message : 'Login failed';
-        setError(message);
-        throw err;
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Login failed');
       }
-    },
-    [API_URL],
-  );
+
+      const data: { data: AuthResponse } = await response.json();
+      const { accessToken, refreshToken, user: userData } = data.data;
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      setUser(userData);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Login failed';
+      setError(message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [API_URL]);
 
   /**
    * Register new user
    */
-  const register = useCallback(
-    async (email: string, password: string, firstName: string, lastName: string) => {
-      try {
-        setLoading(true);
-        setError(null);
+  const register = useCallback(async (email: string, password: string, firstName: string, lastName: string) => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        const response = await fetch(`${API_URL}/auth/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, firstName, lastName }),
-        });
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, firstName, lastName }),
+      });
 
-        if (!response.ok) {
-          const data = await response.json();
-          throw new Error(data.message || 'Registration failed');
-        }
-
-        const data: { data: AuthResponse } = await response.json();
-        const { accessToken, refreshToken, user: userData } = data.data;
-
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('user', JSON.stringify(userData));
-
-        setUser(userData);
-      } catch (err) {
-        const message = err instanceof Error ? err.message : 'Registration failed';
-        setError(message);
-        throw err;
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Registration failed');
       }
-    },
-    [API_URL],
-  );
+
+      const data: { data: AuthResponse } = await response.json();
+      const { accessToken, refreshToken, user: userData } = data.data;
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      setUser(userData);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Registration failed';
+      setError(message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, [API_URL]);
 
   /**
    * Logout user and clear auth data
@@ -196,7 +190,7 @@ export const useAuth = (): UseAuthReturn => {
           await fetch(`${API_URL}/auth/logout`, {
             method: 'POST',
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              'Authorization': `Bearer ${accessToken}`,
               'Content-Type': 'application/json',
             },
           });

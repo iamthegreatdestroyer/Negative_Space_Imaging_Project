@@ -55,46 +55,11 @@ const App: React.FC = () => (
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/" element={<Layout />}>
-                    <Route
-                      index
-                      element={
-                        <PrivateRoute>
-                          <Dashboard />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="processing"
-                      element={
-                        <PrivateRoute>
-                          <ImageProcessing />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="security"
-                      element={
-                        <PrivateRoute>
-                          <SecurityMonitor />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="audit"
-                      element={
-                        <PrivateRoute>
-                          <AuditLogs />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="users"
-                      element={
-                        <PrivateRoute>
-                          <UserManagement />
-                        </PrivateRoute>
-                      }
-                    />
+                    <Route index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                    <Route path="processing" element={<PrivateRoute><ImageProcessing /></PrivateRoute>} />
+                    <Route path="security" element={<PrivateRoute><SecurityMonitor /></PrivateRoute>} />
+                    <Route path="audit" element={<PrivateRoute><AuditLogs /></PrivateRoute>} />
+                    <Route path="users" element={<PrivateRoute><UserManagement /></PrivateRoute>} />
                   </Route>
                 </Routes>
               </Suspense>
