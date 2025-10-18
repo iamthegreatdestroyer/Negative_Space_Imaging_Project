@@ -15,3 +15,4 @@ export { Badge, StatusBadge, CountBadge } from './Badge';
 // Export types
 export type { GalleryImage } from './Gallery';
 export type { TableColumn } from './Table';
+export {};

@@ -214,3 +214,4 @@ export const useImageUpload = (): UseImageUploadReturn => {
 };
 
 export default useImageUpload;
+export {};

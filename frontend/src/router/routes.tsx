@@ -32,9 +32,9 @@ export interface RouteMeta {
 /**
  * Extended route object with metadata
  */
-export interface ExtendedRouteObject extends RouteObject {
+export type ExtendedRouteObject = RouteObject & {
   meta?: RouteMeta;
-}
+};
 
 /**
  * Route metadata registry

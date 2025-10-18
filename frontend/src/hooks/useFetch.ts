@@ -226,3 +226,4 @@ export const useFetch = <T = any>(url: string, options: FetchOptions = {}): UseF
 };
 
 export default useFetch;
+export {};

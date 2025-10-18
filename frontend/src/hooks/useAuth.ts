@@ -291,3 +291,4 @@ export const useAuth = (): UseAuthReturn => {
 };
 
 export default useAuth;
+export {};

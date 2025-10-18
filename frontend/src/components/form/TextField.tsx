@@ -63,15 +63,13 @@ const TextField: React.FC<TextFieldProps> = ({
         onChange={handleChange}
         error={hasError || isValidating}
         disabled={isValidating || rest.disabled}
-        slotProps={{
-          input: {
-            startAdornment: startAdornment ? (
-              <InputAdornment position="start">{startAdornment}</InputAdornment>
-            ) : undefined,
-            endAdornment: endAdornment ? (
-              <InputAdornment position="end">{endAdornment}</InputAdornment>
-            ) : undefined,
-          },
+        InputProps={{
+          startAdornment: startAdornment ? (
+            <InputAdornment position="start">{startAdornment}</InputAdornment>
+          ) : undefined,
+          endAdornment: endAdornment ? (
+            <InputAdornment position="end">{endAdornment}</InputAdornment>
+          ) : undefined,
         }}
         fullWidth
       />

@@ -14,7 +14,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 
 interface NavigationBarProps extends AppBarProps {
@@ -55,9 +55,10 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ onMenuToggle, ...appBarPr
     navigate('/settings');
   };
 
-  const userInitials = user?.name
-    ? user.name
-        .split(' ')
+  const userInitials = user?.email
+    ? user.email
+        .split('@')[0]
+        .split('.')
         .map((n) => n[0])
         .join('')
         .toUpperCase()
@@ -87,7 +88,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ onMenuToggle, ...appBarPr
         {/* User Profile Menu */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Typography variant="body2" sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {user?.name || 'User'}
+            {user?.email?.split('@')[0] || 'User'}
           </Typography>
           <IconButton
             onClick={handleMenuOpen}

@@ -39,3 +39,4 @@ export const useDebounce = <T = any>(value: T, delay = 500): T => {
 };
 
 export default useDebounce;
+export {};

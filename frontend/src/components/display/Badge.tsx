@@ -15,9 +15,9 @@ import WarningIcon from '@mui/icons-material/Warning';
 
 export type BadgeVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
 
-interface BadgeProps extends Omit<MuiChipProps, 'color' | 'variant'> {
+interface BadgeProps extends Omit<MuiChipProps, 'color' | 'variant' | 'icon'> {
   variant?: BadgeVariant;
-  icon?: React.ReactNode;
+  icon?: React.ReactElement | null;
   count?: number;
   max?: number;
   pulse?: boolean;
@@ -135,7 +135,7 @@ const Badge: React.FC<BadgeProps> = ({
 const StatusBadge: React.FC<StatusBadgeProps> = ({ status, label, ...rest }) => {
   const statusConfig: Record<
     string,
-    { variant: BadgeVariant; icon: React.ReactNode; defaultLabel: string }
+    { variant: BadgeVariant; icon: React.ReactElement | null; defaultLabel: string }
   > = {
     active: {
       variant: 'success',

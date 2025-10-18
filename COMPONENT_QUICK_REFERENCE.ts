@@ -1,7 +1,7 @@
 /**
  * QUICK REFERENCE GUIDE - Phase 6 & 7 Components
  * ================================================
- * 
+ *
  * Use this guide to quickly reference how to use each component
  * in your application.
  */
@@ -12,9 +12,9 @@
 
 /**
  * MainLayout - Root layout wrapper for your entire app
- * 
+ *
  * Features: Responsive sidebar, fixed navbar, sticky footer
- * 
+ *
  * Usage:
  * ------
  * function App() {
@@ -29,10 +29,10 @@
 
 /**
  * NavigationBar - Top navigation bar with user profile menu
- * 
+ *
  * Features: Menu toggle, app title, user avatar, logout
  * Automatically integrated into MainLayout
- * 
+ *
  * Props:
  * - onMenuToggle?: () => void - Callback when menu button clicked
  * - elevation?: number - Shadow depth
@@ -40,10 +40,10 @@
 
 /**
  * Sidebar - Navigation menu with role-based access control
- * 
+ *
  * Features: Active route highlighting, RBAC, collapsible
  * Automatically integrated into MainLayout
- * 
+ *
  * Props:
  * - open: boolean - Whether sidebar is visible
  * - onClose: () => void - Close handler
@@ -53,10 +53,10 @@
 
 /**
  * Footer - Application footer with links and copyright
- * 
+ *
  * Features: Company info, social links, responsive layout
  * Automatically integrated into MainLayout
- * 
+ *
  * Props:
  * - companyName?: string - Default: 'Negative Space Imaging'
  * - year?: number - Copyright year, default: current year
@@ -64,9 +64,9 @@
 
 /**
  * PrivateRoute - Protected route wrapper for authenticated users
- * 
+ *
  * Features: Auth check, loading states, role-based access
- * 
+ *
  * Usage:
  * ------
  * <Routes>
@@ -81,13 +81,13 @@
 
 /**
  * TextField - MUI TextField wrapper with validation
- * 
+ *
  * Features: React Hook Form integration, character count, adornments
- * 
+ *
  * Usage:
  * ------
  * const { register, formState: { errors } } = useForm();
- * 
+ *
  * <TextField
  *   label="Username"
  *   {...register('username')}
@@ -95,7 +95,7 @@
  *   characterLimit={50}
  *   showCharCount
  * />
- * 
+ *
  * Props:
  * - label?: string
  * - error?: FieldError
@@ -107,9 +107,9 @@
 
 /**
  * Select - Dropdown select with grouped options
- * 
+ *
  * Features: Flat or grouped options, loading state, React Hook Form integration
- * 
+ *
  * Usage:
  * ------
  * <Select
@@ -121,7 +121,7 @@
  *   value={category}
  *   onChange={(e) => setCategory(e.target.value)}
  * />
- * 
+ *
  * // With groups:
  * <Select
  *   label="Category"
@@ -139,7 +139,7 @@
 
 /**
  * Checkbox - Single checkbox with label and validation
- * 
+ *
  * Usage:
  * ------
  * <Checkbox
@@ -151,7 +151,7 @@
 
 /**
  * CheckboxGroup - Multiple checkboxes with grouping
- * 
+ *
  * Usage:
  * ------
  * <CheckboxGroup
@@ -168,7 +168,7 @@
 
 /**
  * Radio - Single radio button with label
- * 
+ *
  * Usage:
  * ------
  * <Radio
@@ -180,7 +180,7 @@
 
 /**
  * RadioGroup - Multiple radio buttons with descriptions
- * 
+ *
  * Usage:
  * ------
  * <RadioGroup
@@ -198,9 +198,9 @@
 
 /**
  * DatePicker - Single date input with constraints
- * 
+ *
  * Features: Min/max dates, weekend disabling, custom disabled dates
- * 
+ *
  * Usage:
  * ------
  * <DatePicker
@@ -215,9 +215,9 @@
 
 /**
  * DateRangePicker - Start and end date inputs
- * 
+ *
  * Features: Ensures end date > start date, responsive layout
- * 
+ *
  * Usage:
  * ------
  * <DateRangePicker
@@ -235,9 +235,9 @@
 
 /**
  * Table - Advanced data table with sorting, pagination, selection
- * 
+ *
  * Features: Sortable columns, pagination, multi-select rows
- * 
+ *
  * Usage:
  * ------
  * const columns = [
@@ -245,7 +245,7 @@
  *   { id: 'email', label: 'Email', sortable: true },
  *   { id: 'role', label: 'Role', format: (val) => <Badge>{val}</Badge> },
  * ];
- * 
+ *
  * <Table
  *   columns={columns}
  *   rows={users}
@@ -261,9 +261,9 @@
 
 /**
  * Card - Enhanced card component with sections
- * 
+ *
  * Features: Image, header, content, actions, footer sections
- * 
+ *
  * Usage:
  * ------
  * <Card
@@ -282,9 +282,9 @@
 
 /**
  * Gallery - Responsive image gallery with lightbox
- * 
+ *
  * Features: Responsive grid, lightbox modal, keyboard navigation
- * 
+ *
  * Usage:
  * ------
  * <Gallery
@@ -296,7 +296,7 @@
  *   columnsMobile={1}
  *   columnsMedium={2}
  * />
- * 
+ *
  * Props:
  * - images: GalleryImage[] - Array of images
  * - columns?: number - Desktop columns (default: 4)
@@ -306,39 +306,39 @@
 
 /**
  * Badge - Status badge with semantic colors
- * 
+ *
  * Features: Variants (success, error, warning, info), icons, count, pulse
- * 
+ *
  * Usage:
  * ------
  * // Simple badge
  * <Badge variant="success">Active</Badge>
- * 
+ *
  * // With icon
  * <Badge variant="error" icon={<ErrorIcon />}>Error</Badge>
- * 
+ *
  * // With count
  * <Badge variant="info" count={42} max={99}>Notifications</Badge>
- * 
+ *
  * // With pulse animation
  * <Badge variant="warning" pulse>Pending</Badge>
  */
 
 /**
  * StatusBadge - Pre-configured status badges
- * 
+ *
  * Usage:
  * ------
  * <StatusBadge status="active" />
  * <StatusBadge status="pending" />
  * <StatusBadge status="error" label="Custom label" />
- * 
+ *
  * Status values: 'active' | 'inactive' | 'pending' | 'error' | 'warning'
  */
 
 /**
  * CountBadge - Specialized count badge
- * 
+ *
  * Usage:
  * ------
  * <CountBadge count={7} /> // Shows "7"
@@ -438,22 +438,22 @@
  * 1. Always use barrel exports for clean imports:
  *    ✓ import { TextField, Select } from '@/components/form'
  *    ✗ import TextField from '@/components/form/TextField'
- * 
+ *
  * 2. Leverage React Hook Form with form components:
  *    The components are designed to work seamlessly with react-hook-form
- * 
+ *
  * 3. Use TypeScript for type safety:
  *    All components are fully typed with proper interfaces
- * 
+ *
  * 4. Leverage responsive design:
  *    Components auto-adjust to screen size (mobile-first approach)
- * 
+ *
  * 5. Combine components for complex UIs:
  *    Example: MainLayout + Table + Dialogs for a complete dashboard
- * 
+ *
  * 6. Use Material-UI theme for customization:
  *    All components respect the MUI theme configuration
- * 
+ *
  * 7. Check component JSDoc in source files:
  *    Each component file has detailed documentation
  */

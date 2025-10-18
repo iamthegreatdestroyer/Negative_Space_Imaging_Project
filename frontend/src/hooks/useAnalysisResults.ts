@@ -210,3 +210,4 @@ export const useAnalysisResults = (): UseAnalysisResultsReturn => {
 };
 
 export default useAnalysisResults;
+export {};

@@ -35,6 +35,7 @@ import {
 } from '@mui/icons-material';
 import { useImageUpload } from '../hooks/useImageUpload';
 import { useNotification } from '../hooks/useNotification';
+import { useAuth } from '../hooks/useAuth';
 
 /**
  * Uploaded file interface
@@ -66,6 +67,7 @@ const UploadPage: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { uploadImage, uploading } = useImageUpload();
   const { showNotification } = useNotification();
+  const { getAccessToken } = useAuth();
 
   // State management
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
@@ -179,10 +181,14 @@ const UploadPage: React.FC = () => {
         prev.map((f) => (f.id === fileId ? { ...f, status: 'uploading', progress: 0 } : f)),
       );
 
-      // Upload file with progress tracking
-      const analysisId = await uploadImage(fileItem.file, (progress: number) => {
-        setUploadedFiles((prev) => prev.map((f) => (f.id === fileId ? { ...f, progress } : f)));
-      });
+      // Get access token and upload
+      const accessToken = getAccessToken();
+      if (!accessToken) {
+        throw new Error('Not authenticated');
+      }
+
+      // Upload file
+      const analysisId = await uploadImage(fileItem.file, accessToken);
 
       // Update status to completed
       setUploadedFiles((prev) =>
@@ -190,7 +196,7 @@ const UploadPage: React.FC = () => {
       );
 
       showNotification('Upload successful!', 'success');
-      setSuccessAnalysisId(analysisId);
+      setSuccessAnalysisId(analysisId.id);
       setSuccessDialogOpen(true);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Upload failed';

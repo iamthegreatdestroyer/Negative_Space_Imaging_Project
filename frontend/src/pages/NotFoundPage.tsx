@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Button, Stack } from '@mui/material';
-import { NotFound as NotFoundIcon } from '@mui/icons-material';
+import { ErrorOutline as NotFoundIcon } from '@mui/icons-material';
 
 export default function NotFoundPage() {
   const navigate = useNavigate();

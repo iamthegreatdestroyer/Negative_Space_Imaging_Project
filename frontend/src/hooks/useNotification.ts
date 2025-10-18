@@ -70,3 +70,4 @@ export const useNotification = (): UseNotificationReturn => {
 };
 
 export default useNotification;
+export {};

@@ -97,10 +97,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
           min: minDate,
           max: maxDate,
         }}
-        slotProps={{
-          inputLabel: {
-            shrink: true,
-          },
+        InputLabelProps={{
+          shrink: true,
         }}
         fullWidth
       />
@@ -176,10 +174,8 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
             min: minDate,
             max: endDate || maxDate,
           }}
-          slotProps={{
-            inputLabel: {
-              shrink: true,
-            },
+          InputLabelProps={{
+            shrink: true,
           }}
           sx={{ flex: 1 }}
         />
@@ -195,10 +191,8 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
             min: startDate || minDate,
             max: maxDate,
           }}
-          slotProps={{
-            inputLabel: {
-              shrink: true,
-            },
+          InputLabelProps={{
+            shrink: true,
           }}
           sx={{ flex: 1 }}
         />

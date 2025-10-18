@@ -33,7 +33,7 @@ import {
   Save as SaveIcon,
   Lock as LockIcon,
   Notifications as NotificationsIcon,
-  Privacy as PrivacyIcon,
+  VpnLock as PrivacyIcon,
   Delete as DeleteIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';

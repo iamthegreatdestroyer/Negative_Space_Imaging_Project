@@ -15,3 +15,4 @@ export {
   useNotificationContext,
 } from './NotificationContext';
 export type { Notification, NotificationSeverity } from './NotificationContext';
+export {};

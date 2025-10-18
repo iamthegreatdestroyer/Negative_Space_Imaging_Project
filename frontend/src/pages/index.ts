@@ -18,3 +18,4 @@ export { default as DashboardPage } from './DashboardPage';
 export { default as UploadPage } from './UploadPage';
 export { default as AnalysisResultsPage } from './AnalysisResultsPage';
 export { default as SettingsPage } from './SettingsPage';
+export {};

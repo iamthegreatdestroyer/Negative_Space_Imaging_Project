@@ -13,7 +13,7 @@
  * - TypeScript strict typing
  */
 
-import type { ReactNode } from 'react';
+import type { ReactNode, FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { CircularProgress, Box } from '@mui/material';
 import { useAuth } from '../hooks/useAuth';
@@ -68,13 +68,13 @@ export function ProtectedRoute({
   requiredRole = 'user',
   showLoadingSpinner = true,
   fallback,
-}: ProtectedRouteProps): ReactNode {
-  const { isAuthenticated, isLoading, user } = useAuth();
+}: ProtectedRouteProps): JSX.Element {
+  const { isAuthenticated, loading, user } = useAuth();
 
   // Show loading state while checking authentication
-  if (isLoading) {
+  if (loading) {
     if (fallback) {
-      return fallback;
+      return fallback as JSX.Element;
     }
 
     if (showLoadingSpinner) {
@@ -85,7 +85,7 @@ export function ProtectedRoute({
       );
     }
 
-    return null;
+    return <></>;
   }
 
   // Not authenticated - redirect to login
@@ -94,13 +94,13 @@ export function ProtectedRoute({
   }
 
   // Check role-based access
-  if (requiredRole === 'admin' && user?.role !== 'admin') {
+  if (requiredRole === 'admin' && !user?.roles?.includes('admin')) {
     // Not admin - redirect to error page
     return <Navigate to="/error" replace />;
   }
 
   // Access granted - render children
-  return children;
+  return <>{children}</>;
 }
 
 /**
@@ -145,10 +145,10 @@ export function withProtection<P extends object>(
  * ```
  */
 export function useRouteAccess(requiredRole: UserRole = 'user'): boolean {
-  const { isAuthenticated, user, isLoading } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
 
   // Still loading
-  if (isLoading) {
+  if (loading) {
     return false;
   }
 
@@ -158,7 +158,7 @@ export function useRouteAccess(requiredRole: UserRole = 'user'): boolean {
   }
 
   // Check role
-  if (requiredRole === 'admin' && user?.role !== 'admin') {
+  if (requiredRole === 'admin' && !user?.roles?.includes('admin')) {
     return false;
   }
 

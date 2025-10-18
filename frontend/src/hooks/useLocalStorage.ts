@@ -106,3 +106,4 @@ export const useLocalStorage = <T = any>(
 };
 
 export default useLocalStorage;
+export {};

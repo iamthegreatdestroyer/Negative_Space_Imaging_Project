@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { Box, CircularProgress } from '@mui/material';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks';
 
 interface PrivateRouteProps {
   children: React.ReactNode;
@@ -19,24 +18,8 @@ interface PrivateRouteProps {
  * - Preserves attempted location for post-login redirect
  */
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, requiredRoles = [] }) => {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const location = useLocation();
-
-  // Show loading spinner while checking authentication
-  if (isLoading) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {

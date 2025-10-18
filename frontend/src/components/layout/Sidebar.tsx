@@ -19,7 +19,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks';
 
 interface SidebarProps {
   open: boolean;
@@ -185,7 +185,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, width, mobile = false 
               onClick={handleLogout}
               sx={{
                 '&:hover': {
-                  backgroundColor: theme.palette.error.lighter || 'rgba(244, 67, 54, 0.04)',
+                  backgroundColor: theme.palette.error.light || 'rgba(244, 67, 54, 0.1)',
                 },
               }}
             >

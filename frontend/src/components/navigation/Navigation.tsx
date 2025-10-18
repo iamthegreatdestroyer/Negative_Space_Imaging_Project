@@ -30,9 +30,9 @@ import {
   AdminPanelSettings as AdminIcon,
   Logout as LogoutIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../hooks/useAuth';
-import { useUIStore } from '../store/uiStore';
-import { getBreadcrumbs, isAdminRoute } from '../router/routes';
+import { useAuth } from '../../hooks';
+import { useUIStore } from '../../store/uiStore';
+import { getBreadcrumbs, isAdminRoute } from '../../router/routes';
 
 const routeIcons: Record<string, React.ReactNode> = {
   '/dashboard': <DashboardIcon />,
@@ -59,7 +59,9 @@ export default function Navigation() {
     { path: '/upload', label: 'Upload', icon: <UploadIcon /> },
     { path: '/analysis', label: 'Analysis', icon: <AnalyticsIcon /> },
     { path: '/settings', label: 'Settings', icon: <SettingsIcon /> },
-    ...(user?.role === 'admin' ? [{ path: '/admin', label: 'Admin', icon: <AdminIcon /> }] : []),
+    ...(user?.roles?.includes('admin')
+      ? [{ path: '/admin', label: 'Admin', icon: <AdminIcon /> }]
+      : []),
   ];
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -139,10 +141,10 @@ export default function Navigation() {
           {/* User Menu */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Avatar sx={{ cursor: 'pointer', bgcolor: 'secondary.main' }} onClick={handleMenuOpen}>
-              {user?.name?.charAt(0).toUpperCase() || 'U'}
+              {user?.email?.charAt(0).toUpperCase() || 'U'}
             </Avatar>
             <Typography variant="body2" sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {user?.name || 'User'}
+              {user?.email || 'User'}
             </Typography>
           </Box>
 

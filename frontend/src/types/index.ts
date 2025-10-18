@@ -51,3 +51,4 @@ export interface Signature {
 }
 
 // ...add additional interfaces as needed for full schema coverage
+export {};

@@ -606,7 +606,13 @@ const AnalysisResultsPage: React.FC = () => {
       >
         <DialogTitle>Share Analysis Results</DialogTitle>
         <DialogContent>
-          <TextField fullWidth value={shareUrl} readOnly variant="outlined" sx={{ mt: 2 }} />
+          <TextField
+            fullWidth
+            value={shareUrl}
+            variant="outlined"
+            InputProps={{ readOnly: true }}
+            sx={{ mt: 2 }}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShareDialogOpen(false)}>Close</Button>
