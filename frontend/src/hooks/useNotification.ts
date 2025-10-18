@@ -1,73 +1,33 @@
 /**
- * useNotification Hook
- * Provides easy access to notification context and methods
- * @author Negative Space Imaging Project
- * @version 1.0.0
+ * Notification Hook
+ * Provides notification/toast functionality
  */
 
-import { useContext } from 'react';
-import {
-  NotificationContext,
-  Notification,
-  NotificationSeverity,
-} from '../contexts/NotificationContext';
+import { useCallback } from 'react';
 
-/**
- * Hook return type
- */
-export interface UseNotificationReturn {
-  showNotification: (
-    message: string,
-    severity?: NotificationSeverity,
-    duration?: number,
-    action?: Notification['action'],
-  ) => string;
-  removeNotification: (id: string) => void;
-  clearAll: () => void;
-  success: (message: string, duration?: number) => string;
-  error: (message: string, duration?: number) => string;
-  warning: (message: string, duration?: number) => string;
-  info: (message: string, duration?: number) => string;
+export type NotificationType = 'success' | 'error' | 'warning' | 'info';
+
+export interface Notification {
+  id: string;
+  message: string;
+  type: NotificationType;
+  duration?: number;
 }
 
-/**
- * useNotification - Hook to access notification context
- * Provides methods to show different types of notifications
- *
- * @returns {UseNotificationReturn} Notification methods
- *
- * @example
- * const { showNotification, success, error } = useNotification();
- *
- * // Show generic notification
- * showNotification('Loading...', 'info');
- *
- * // Show success
- * success('Profile updated successfully!');
- *
- * // Show error
- * error('Failed to save changes');
- */
-export const useNotification = (): UseNotificationReturn => {
-  const context = useContext(NotificationContext);
-
-  if (!context) {
-    throw new Error(
-      'useNotification must be used within a NotificationProvider. ' +
-        'Make sure your component is wrapped with <NotificationProvider>.',
-    );
-  }
+export const useNotification = () => {
+  const notify = useCallback(
+    (message: string, type: NotificationType = 'info', _duration = 3000) => {
+      // TODO: Implement notification display logic
+      console.log(`[${type.toUpperCase()}] ${message}`);
+    },
+    [],
+  );
 
   return {
-    showNotification: context.addNotification,
-    removeNotification: context.removeNotification,
-    clearAll: context.clearNotifications,
-    success: context.success,
-    error: context.error,
-    warning: context.warning,
-    info: context.info,
+    notify,
+    success: (message: string, duration?: number) => notify(message, 'success', duration),
+    error: (message: string, duration?: number) => notify(message, 'error', duration),
+    warning: (message: string, duration?: number) => notify(message, 'warning', duration),
+    info: (message: string, duration?: number) => notify(message, 'info', duration),
   };
 };
-
-export default useNotification;
-export {};

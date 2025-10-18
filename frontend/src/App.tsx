@@ -14,7 +14,7 @@ import { ThemeProvider as CustomThemeProvider } from './contexts/ThemeContext';
 import { NotificationProvider } from './contexts/NotificationContext';
 
 // Import components
-import Layout from './components/Layout';
+import Layout from './components/layout-root';
 import PrivateRoute from './components/PrivateRoute';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import LoadingSpinner from './components/common/LoadingSpinner';
