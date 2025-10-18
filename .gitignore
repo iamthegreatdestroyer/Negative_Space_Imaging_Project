@@ -99,3 +99,10 @@ Thumbs.db
 .venv/
 venv/
 ENV/
+
+# VS Code Local History
+.history/
+
+# Backup directories
+node_modules.bak/
+*.bak/
