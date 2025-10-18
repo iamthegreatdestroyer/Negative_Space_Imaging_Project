@@ -83,11 +83,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   return (
     <FormControl error={hasError} fullWidth component="fieldset" disabled={disabled}>
       {legend && (
-        <Typography
-          component="legend"
-          variant="subtitle2"
-          sx={{ fontWeight: 600, mb: 1 }}
-        >
+        <Typography component="legend" variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
           {legend}
         </Typography>
       )}
@@ -103,12 +99,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         }}
       >
         {options.map((option) => (
-          <Stack
-            key={`radio-${option.value}`}
-            direction="row"
-            alignItems="flex-start"
-            spacing={1}
-          >
+          <Stack key={`radio-${option.value}`} direction="row" alignItems="flex-start" spacing={1}>
             <FormControlLabel
               control={<MuiRadio />}
               value={option.value}

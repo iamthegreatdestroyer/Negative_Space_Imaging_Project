@@ -55,11 +55,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <Box sx={{ display: 'flex', flex: 1, mt: `${navBarHeight}px` }}>
         {/* Sidebar - Desktop */}
         {!isMobile && (
-          <Sidebar
-            open={sidebarOpen}
-            onClose={handleSidebarToggle}
-            width={sidebarWidth}
-          />
+          <Sidebar open={sidebarOpen} onClose={handleSidebarToggle} width={sidebarWidth} />
         )}
 
         {/* Sidebar - Mobile Drawer */}
@@ -76,12 +72,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               },
             }}
           >
-            <Sidebar
-              open={true}
-              onClose={handleMobileMenuClose}
-              width={sidebarWidth}
-              mobile
-            />
+            <Sidebar open={true} onClose={handleMobileMenuClose} width={sidebarWidth} mobile />
           </Drawer>
         )}
 

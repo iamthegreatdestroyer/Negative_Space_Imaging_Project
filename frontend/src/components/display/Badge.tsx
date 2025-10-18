@@ -108,9 +108,7 @@ const Badge: React.FC<BadgeProps> = ({
         border: `1px solid ${styles.border}`,
         fontWeight: 500,
         fontSize: '0.85rem',
-        animation: pulse
-          ? `pulse 2s ease-in-out infinite`
-          : undefined,
+        animation: pulse ? `pulse 2s ease-in-out infinite` : undefined,
         '@keyframes pulse': {
           '0%, 100%': {
             opacity: 1,
@@ -134,11 +132,7 @@ const Badge: React.FC<BadgeProps> = ({
  * - Automatic icon selection
  * - Semantic color coding
  */
-const StatusBadge: React.FC<StatusBadgeProps> = ({
-  status,
-  label,
-  ...rest
-}) => {
+const StatusBadge: React.FC<StatusBadgeProps> = ({ status, label, ...rest }) => {
   const statusConfig: Record<
     string,
     { variant: BadgeVariant; icon: React.ReactNode; defaultLabel: string }
@@ -193,11 +187,7 @@ interface CountBadgeProps extends Omit<BadgeProps, 'children'> {
   count: number;
 }
 
-const CountBadge: React.FC<CountBadgeProps> = ({
-  count,
-  max = 99,
-  ...rest
-}) => {
+const CountBadge: React.FC<CountBadgeProps> = ({ count, max = 99, ...rest }) => {
   const theme = useTheme();
   const displayCount = count > max ? `${max}+` : count;
 

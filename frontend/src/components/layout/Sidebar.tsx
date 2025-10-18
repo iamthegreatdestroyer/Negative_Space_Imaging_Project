@@ -126,9 +126,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, width, mobile = false 
               <ListItemButton
                 onClick={() => handleNavigate(item.path)}
                 sx={{
-                  backgroundColor: isActive
-                    ? theme.palette.action.selected
-                    : 'transparent',
+                  backgroundColor: isActive ? theme.palette.action.selected : 'transparent',
                   borderLeft: isActive ? `3px solid ${theme.palette.primary.main}` : 'none',
                   pl: isActive ? 1 : 2,
                   '&:hover': {
@@ -167,12 +165,12 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose, width, mobile = false 
             <ListItemButton
               onClick={() => handleNavigate('/settings')}
               sx={{
-                backgroundColor: location.pathname === '/settings'
-                  ? theme.palette.action.selected
-                  : 'transparent',
-                borderLeft: location.pathname === '/settings'
-                  ? `3px solid ${theme.palette.primary.main}`
-                  : 'none',
+                backgroundColor:
+                  location.pathname === '/settings' ? theme.palette.action.selected : 'transparent',
+                borderLeft:
+                  location.pathname === '/settings'
+                    ? `3px solid ${theme.palette.primary.main}`
+                    : 'none',
                 pl: location.pathname === '/settings' ? 1 : 2,
               }}
             >

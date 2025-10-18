@@ -40,7 +40,7 @@ const TextField: React.FC<TextFieldProps> = ({
   ...rest
 }) => {
   const [charCount, setCharCount] = React.useState<number>(
-    typeof value === 'string' ? value.length : 0
+    typeof value === 'string' ? value.length : 0,
   );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,9 +88,7 @@ const TextField: React.FC<TextFieldProps> = ({
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             {helperIcon && helperIcon}
-            {errorMessage && (
-              <FormHelperText error={hasError}>{errorMessage}</FormHelperText>
-            )}
+            {errorMessage && <FormHelperText error={hasError}>{errorMessage}</FormHelperText>}
           </Box>
 
           {showCharCount && characterLimit && (

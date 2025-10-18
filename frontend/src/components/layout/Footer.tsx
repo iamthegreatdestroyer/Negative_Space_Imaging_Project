@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Link,
-  Grid,
-  useTheme,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Container, Typography, Link, Grid, useTheme, useMediaQuery } from '@mui/material';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 
 interface FooterProps {

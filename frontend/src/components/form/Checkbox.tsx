@@ -107,11 +107,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   return (
     <FormControl error={hasError} fullWidth component="fieldset">
       {legend && (
-        <Typography
-          component="legend"
-          variant="subtitle2"
-          sx={{ fontWeight: 600, mb: 1 }}
-        >
+        <Typography component="legend" variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
           {legend}
         </Typography>
       )}

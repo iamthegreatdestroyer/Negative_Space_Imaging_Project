@@ -30,10 +30,7 @@ interface NavigationBarProps extends AppBarProps {
  * - User profile menu
  * - Responsive design
  */
-const NavigationBar: React.FC<NavigationBarProps> = ({
-  onMenuToggle,
-  ...appBarProps
-}) => {
+const NavigationBar: React.FC<NavigationBarProps> = ({ onMenuToggle, ...appBarProps }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -71,12 +68,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     <AppBar position="fixed" {...appBarProps}>
       <Toolbar>
         {/* Menu Toggle Button */}
-        <IconButton
-          color="inherit"
-          aria-label="toggle menu"
-          onClick={onMenuToggle}
-          sx={{ mr: 2 }}
-        >
+        <IconButton color="inherit" aria-label="toggle menu" onClick={onMenuToggle} sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton>
 

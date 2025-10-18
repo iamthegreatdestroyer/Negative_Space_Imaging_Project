@@ -103,9 +103,7 @@ const Select: React.FC<SelectProps> = ({
       </MuiSelect>
 
       {(errorMessage || helperText) && (
-        <FormHelperText>
-          {errorMessage || helperText}
-        </FormHelperText>
+        <FormHelperText>{errorMessage || helperText}</FormHelperText>
       )}
     </FormControl>
   );

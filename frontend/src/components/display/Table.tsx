@@ -159,9 +159,7 @@ function Table<T extends Record<string, any>>({
                     indeterminate={
                       selectedRows.size > 0 && selectedRows.size < paginatedRows.length
                     }
-                    checked={
-                      paginatedRows.length > 0 && selectedRows.size === paginatedRows.length
-                    }
+                    checked={paginatedRows.length > 0 && selectedRows.size === paginatedRows.length}
                     onChange={handleSelectAll}
                   />
                 </TableCell>
