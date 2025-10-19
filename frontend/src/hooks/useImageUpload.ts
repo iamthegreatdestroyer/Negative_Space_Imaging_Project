@@ -16,37 +16,39 @@ export const useImageUpload = () => {
   const [error, setError] = useState<Error | null>(null);
   const [_progress, _setProgress] = useState<UploadProgress>({ loaded: 0, total: 0, percent: 0 });
 
-  const upload = useCallback(
-    async (file: File, _onProgress?: (progress: UploadProgress) => void) => {
-      setIsLoading(true);
-      setError(null);
+  const upload = useCallback(async (file: File, _accessToken?: string): Promise<string> => {
+    setIsLoading(true);
+    setError(null);
 
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
 
-        // TODO: Implement actual upload API call
-        // const response = await fetch('/api/upload', {
-        //   method: 'POST',
-        //   body: formData,
-        //   onuploadprogress: (event) => {
-        //     const progress: UploadProgress = {
-        //       loaded: event.loaded,
-        //       total: event.total,
-        //       percent: Math.round((event.loaded / event.total) * 100),
-        //     };
-        //     setProgress(progress);
-        //     onProgress?.(progress);
-        //   },
-        // });
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error('Upload failed'));
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [],
-  );
+      // TODO: Implement actual upload API call
+      // const response = await fetch('/api/upload', {
+      //   method: 'POST',
+      //   body: formData,
+      //   headers: { Authorization: `Bearer ${_accessToken}` },
+      //   onuploadprogress: (event) => {
+      //     const progress: UploadProgress = {
+      //       loaded: event.loaded,
+      //       total: event.total,
+      //       percent: Math.round((event.loaded / event.total) * 100),
+      //     };
+      //     setProgress(progress);
+      //   },
+      // });
+      // return response.json().analysisId;
+
+      // Stub return
+      return 'stub-analysis-id-' + Date.now();
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Upload failed'));
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   return {
     upload,

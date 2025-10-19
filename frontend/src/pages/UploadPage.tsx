@@ -196,7 +196,7 @@ const UploadPage: React.FC = () => {
       );
 
       showNotification('Upload successful!', 'success');
-      setSuccessAnalysisId(analysisId.id);
+      setSuccessAnalysisId(analysisId);
       setSuccessDialogOpen(true);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Upload failed';

@@ -21,7 +21,12 @@ export interface UseAuthReturn {
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-  register: (email: string, password: string, username?: string) => Promise<void>;
+  register: (
+    email: string,
+    password: string,
+    firstName?: string,
+    lastName?: string,
+  ) => Promise<void>;
   refreshAccessToken: () => Promise<boolean>;
   getAccessToken: () => string | null;
   clearError: () => void;
@@ -62,18 +67,21 @@ export const useAuth = (): UseAuthReturn => {
     }
   }, []);
 
-  const register = useCallback(async (email: string, password: string, username?: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      // TODO: Implement actual register API call
-      setUser({ id: '1', email, username });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const register = useCallback(
+    async (email: string, password: string, firstName?: string, lastName?: string) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        // TODO: Implement actual register API call
+        setUser({ id: '1', email, firstName, lastName });
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Registration failed');
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
 
   const refreshAccessToken = useCallback(async () => {
     // TODO: Implement token refresh logic
