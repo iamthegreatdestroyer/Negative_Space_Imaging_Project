@@ -25,6 +25,7 @@ export const useNotification = () => {
 
   return {
     notify,
+    showNotification: notify, // Alias for backward compatibility
     success: (message: string, duration?: number) => notify(message, 'success', duration),
     error: (message: string, duration?: number) => notify(message, 'error', duration),
     warning: (message: string, duration?: number) => notify(message, 'warning', duration),

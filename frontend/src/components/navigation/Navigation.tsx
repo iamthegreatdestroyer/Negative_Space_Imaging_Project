@@ -49,7 +49,7 @@ export default function Navigation() {
   const location = useLocation();
   const navigate = useNavigate();
   const { logout, user } = useAuth();
-  const { state: uiState, toggleSidebar } = useUIStore();
+  const { sidebarOpen, toggleSidebar } = useUIStore();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const breadcrumbs = useMemo(() => getBreadcrumbs(location.pathname), [location.pathname]);
@@ -196,7 +196,7 @@ export default function Navigation() {
       {isMobile ? (
         <Drawer
           anchor="left"
-          open={uiState.sidebarOpen}
+          open={sidebarOpen}
           onClose={toggleSidebar}
           sx={{ display: { xs: 'block', md: 'none' } }}
         >

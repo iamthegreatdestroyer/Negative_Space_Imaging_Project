@@ -14,7 +14,7 @@ export interface UploadProgress {
 export const useImageUpload = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [progress, setProgress] = useState<UploadProgress>({ loaded: 0, total: 0, percent: 0 });
+  const [_progress, _setProgress] = useState<UploadProgress>({ loaded: 0, total: 0, percent: 0 });
 
   const upload = useCallback(
     async (file: File, _onProgress?: (progress: UploadProgress) => void) => {
@@ -54,6 +54,6 @@ export const useImageUpload = () => {
     uploading: isLoading,
     isLoading,
     error,
-    progress: progress,
+    progress: _progress,
   };
 };

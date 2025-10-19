@@ -20,12 +20,7 @@ import {
   CircularProgress,
   Alert,
 } from '@mui/material';
-import {
-  Warning as WarningIcon,
-  Error as ErrorIcon,
-  Info as InfoIcon,
-  CheckCircle as SuccessIcon,
-} from '@mui/icons-material';
+import { Warning as WarningIcon, Error as ErrorIcon, Info as InfoIcon } from '@mui/icons-material';
 import { SelectChangeEvent } from '@mui/material/Select';
 
 interface SecurityEvent {
@@ -66,14 +61,11 @@ const SecurityMonitor: React.FC = () => {
       if (filters.severity !== 'all') queryParams.append('severity', filters.severity);
       if (filters.category !== 'all') queryParams.append('category', filters.category);
 
-      const response = await fetch(
-        `http://localhost:8000/security-events?${queryParams}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:8000/security-events?${queryParams}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error('Failed to fetch security events');
@@ -103,10 +95,7 @@ const SecurityMonitor: React.FC = () => {
     };
   }, [filters]);
 
-  const handleFilterChange = (
-    event: SelectChangeEvent,
-    filterType: 'severity' | 'category'
-  ) => {
+  const handleFilterChange = (event: SelectChangeEvent, filterType: 'severity' | 'category') => {
     setFilters((prev) => ({
       ...prev,
       [filterType]: event.target.value,
@@ -127,12 +116,7 @@ const SecurityMonitor: React.FC = () => {
 
   if (loading) {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="200px"
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
         <CircularProgress />
       </Box>
     );
@@ -272,9 +256,7 @@ const SecurityMonitor: React.FC = () => {
                     />
                   </Box>
                 </TableCell>
-                <TableCell>
-                  {new Date(event.timestamp).toLocaleString()}
-                </TableCell>
+                <TableCell>{new Date(event.timestamp).toLocaleString()}</TableCell>
                 <TableCell>{event.category}</TableCell>
                 <TableCell>{event.description}</TableCell>
                 <TableCell>{event.source}</TableCell>

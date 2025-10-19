@@ -66,10 +66,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
   defaultTheme = 'auto',
 }) => {
-  const { value: savedTheme, setValue: setSavedTheme } = useLocalStorage<ThemeMode>(
-    'theme',
-    defaultTheme,
-  );
+  const [savedTheme, setSavedTheme] = useLocalStorage<ThemeMode>('theme', defaultTheme);
   const [mode, setMode] = useState<ThemeMode>(savedTheme);
   const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>(() => getSystemTheme());
 

@@ -104,7 +104,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             </Typography>
 
             <Typography variant="body1" color="textSecondary" gutterBottom>
-              We're sorry for the inconvenience. The application encountered an unexpected error.
+              We&apos;re sorry for the inconvenience. The application encountered an unexpected
+              error.
             </Typography>
 
             {this.props.showDetails && this.state.error && (

@@ -49,7 +49,6 @@ const Login: React.FC = () => {
             label="Username"
             name="username"
             autoComplete="username"
-            autoFocus
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
