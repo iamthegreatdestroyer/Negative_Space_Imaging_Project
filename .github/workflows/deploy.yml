@@ -60,7 +60,7 @@ jobs:
                       type=sha
 
             - name: Build and push
-              uses: docker/build-push-action@v5
+              uses: docker/build-push-action@v6
               with:
                   context: .
                   file: ./Dockerfile.${{ matrix.image }}
@@ -104,6 +104,16 @@ jobs:
                   kubectl rollout status deployment/api -n negative-space
                   kubectl rollout status deployment/frontend -n negative-space
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.11'
+
+            - name: Install test dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements.txt
+
             - name: Run smoke tests
               run: |
                   python tests/smoke_tests.py --environment staging
@@ -131,7 +141,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Set up kubectl
-              uses: azure/setup-kubectl@v3
+              uses: azure/setup-kubectl@v4
 
             - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v4
@@ -143,6 +153,16 @@ jobs:
             - name: Update kubeconfig
               run: |
                   aws eks update-kubeconfig --name negative-space-production --region us-east-1
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.11'
+
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements.txt
 
             - name: Create backup
               run: |
@@ -274,7 +294,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Set up kubectl
-              uses: azure/setup-kubectl@v3
+              uses: azure/setup-kubectl@v4
 
             - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v4
@@ -283,11 +303,21 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: us-east-1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.11'
+
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements.txt
+
             - name: Rollback to previous version
               run: |
                   # Switch traffic back to blue
                   kubectl patch service api -n negative-space -p '{"spec":{"selector":{"version":"blue"}}}'
-                  kubectl patch service frontend -n negative-space -p '{"spec":{"selector":{"version":"green"}}}'
+                  kubectl patch service frontend -n negative-space -p '{"spec":{"selector":{"version":"blue"}}}'
 
                   # Scale up blue
                   kubectl scale deployment api-blue --replicas=3 -n negative-space
