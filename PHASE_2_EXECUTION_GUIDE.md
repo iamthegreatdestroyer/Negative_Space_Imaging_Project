@@ -342,12 +342,12 @@ from loggers import logger
 
 class NegativeSpaceAnalyzer:
     """Analyzes images to detect negative space regions."""
-    
+
     def __init__(self, config: Optional[Dict] = None):
         """Initialize analyzer with optional config."""
         self.config = config or {}
         logger.info("NegativeSpaceAnalyzer initialized")
-    
+
     def analyze(self, image_path: str) -> AnalysisResult:
         """Analyze image at path."""
         # Implementation here
@@ -467,7 +467,7 @@ export function initUserModel(sequelize: Sequelize): typeof User {
     first_name: { type: DataTypes.STRING, allowNull: false },
     last_name: { type: DataTypes.STRING, allowNull: false },
   }, { sequelize, tableName: 'users' });
-  
+
   return User;
 }
 ```
@@ -591,7 +591,7 @@ export class UserService {
   async registerUser(email: string, password: string, first_name: string, last_name: string): Promise<any> {
     // Hash password
     const hash = await bcrypt.hash(password, 10);
-    
+
     // Create user
     const user = await User.create({
       email,
@@ -599,10 +599,10 @@ export class UserService {
       first_name,
       last_name
     });
-    
+
     // Generate token
     const token = generateToken({ userId: user.id });
-    
+
     return { user: user.toJSON(), token };
   }
 }
@@ -610,7 +610,7 @@ export class UserService {
 // In routes
 router.post('/register', async (req: Request, res: Response) => {
   const { email, password, first_name, last_name } = req.body;
-  
+
   // Validate input
   // Call service
   // Return response
