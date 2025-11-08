@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # PostgreSQL Database
@@ -46,50 +46,65 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.python
+      args:
+        PYTHON_VERSION: "3.11"
     container_name: nsi_python
     environment:
       PYTHONUNBUFFERED: 1
+      PYTHONDONTWRITEBYTECODE: 1
       DATABASE_URL: postgresql://${DB_USER:-nsi_admin}:${DB_PASSWORD:-secure_password}@postgres:5432/${DB_NAME:-negative_space}
       REDIS_URL: redis://redis:6379
-      FLASK_ENV: ${PYTHON_ENV:-development}
+      PYTHON_ENV: ${PYTHON_ENV:-development}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     volumes:
-      - ./python:/app/python
+      - ./src/python:/app/src
       - ./uploads:/app/uploads
+      - shared_data:/app/shared_data
     ports:
-      - "5000:5000"
+      - "8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - nsi_network
     restart: unless-stopped
-    command: python -m negative_space.api
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=python"
+    command: python -m uvicorn src.api:app --host 0.0.0.0 --port 8000 --reload
 
   # Node.js Backend API
-  backend:
+  api:
     build:
       context: .
-      dockerfile: Dockerfile.node
-    container_name: nsi_backend
+      dockerfile: Dockerfile.api
+      args:
+        NODE_ENV: development
+    container_name: nsi_api
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: 3000
       DATABASE_URL: postgresql://${DB_USER:-nsi_admin}:${DB_PASSWORD:-secure_password}@postgres:5432/${DB_NAME:-negative_space}
       REDIS_URL: redis://redis:6379
-      JWT_SECRET: ${JWT_SECRET:-your_secret_key_change_in_production}
-      PYTHON_SERVICE_URL: http://python_service:5000
+      JWT_SECRET: ${JWT_SECRET:-dev_secret_key_change_in_production}
+      PYTHON_SERVICE_URL: http://python_service:8000
       LOG_LEVEL: ${LOG_LEVEL:-info}
+      NODE_OPTIONS: --max-old-space-size=512
     volumes:
       - ./src:/app/src
-      - ./uploads:/app/uploads
+      - ./dist:/app/dist
+      - uploads:/app/uploads
     ports:
       - "3000:3000"
     depends_on:
@@ -101,36 +116,53 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - nsi_network
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=api"
 
   # React Frontend
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+      args:
+        NODE_ENV: development
     container_name: nsi_frontend
     environment:
-      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:3000}
+      REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost/api}
       NODE_ENV: ${NODE_ENV:-development}
     volumes:
-      - ./src/frontend:/app/src
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
     ports:
-      - "3001:3000"
+      - "80:80"
     depends_on:
-      - backend
+      - api
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - nsi_network
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        labels: "service=frontend"
 
   # PgAdmin Database Management (Development Only)
   pgadmin:
@@ -170,11 +202,14 @@ volumes:
     driver: local
   redis_data:
     driver: local
+  uploads:
+    driver: local
+  shared_data:
+    driver: local
 
 networks:
   nsi_network:
     driver: bridge
-
 # Development: docker-compose up
 # Production: docker-compose -f docker-compose.prod.yml up -d
 # With dev tools: docker-compose --profile dev up
