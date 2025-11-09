@@ -17,14 +17,14 @@ def sample_image():
     """Create a simple test image (100x100 white image with black border)."""
     img = Image.new('RGB', (100, 100), color='white')
     pixels = img.load()
-    
+
     # Add black border
     for i in range(100):
         pixels[i, 0] = (0, 0, 0)
         pixels[i, 99] = (0, 0, 0)
         pixels[0, i] = (0, 0, 0)
         pixels[99, i] = (0, 0, 0)
-    
+
     return img
 
 

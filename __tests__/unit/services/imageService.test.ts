@@ -33,21 +33,21 @@ describe('ImageService', () => {
     it('should validate file type', async () => {
       const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
       const fileType = 'image/jpeg';
-      
+
       expect(allowedTypes).toContain(fileType);
     });
 
     it('should validate file size', async () => {
       const maxSize = 50 * 1024 * 1024; // 50MB
       const fileSize = 5 * 1024 * 1024; // 5MB
-      
+
       expect(fileSize).toBeLessThanOrEqual(maxSize);
     });
 
     it('should reject oversized files', async () => {
       const maxSize = 50 * 1024 * 1024;
       const oversizedFile = 100 * 1024 * 1024;
-      
+
       expect(oversizedFile).toBeGreaterThan(maxSize);
     });
   });
@@ -67,7 +67,7 @@ describe('ImageService', () => {
       const page = 1;
       const pageSize = 10;
       const skip = (page - 1) * pageSize;
-      
+
       expect(skip).toBe(0);
       expect(pageSize).toBe(10);
     });

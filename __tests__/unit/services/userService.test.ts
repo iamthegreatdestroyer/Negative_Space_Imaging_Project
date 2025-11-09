@@ -41,7 +41,7 @@ describe('UserService', () => {
     it('should hash password before storing', async () => {
       const plainPassword = 'TestPassword123!';
       const hashedPassword = await bcrypt.hash(plainPassword, 10);
-      
+
       const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
       expect(isMatch).toBe(true);
     });
@@ -130,7 +130,7 @@ describe('UserService', () => {
     it('should validate password strength', async () => {
       const weakPassword = '123';
       const strongPassword = 'TestPassword123!';
-      
+
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
       expect(passwordRegex.test(weakPassword)).toBe(false);
       expect(passwordRegex.test(strongPassword)).toBe(true);
