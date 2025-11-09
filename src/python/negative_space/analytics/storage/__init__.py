@@ -1,4 +1,4 @@
-""""""
+"""
 Storage layer for analytics persistence.
 
 Provides database connectivity, time-series storage, and repository
@@ -17,4 +17,4 @@ __all__ = [
     "PostgresMetricsRepository",
     "CachedMetricsRepository",
     "InMemoryMetricsRepository",
-]"""
+]
