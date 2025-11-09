@@ -11,10 +11,16 @@ from .statistical import (
     CorrelationResult,
     TrendResult,
 )
+from .anomaly_detection import (
+    AnomalyDetector,
+    AnomalyScore,
+)
 
 __all__ = [
     "StatisticalAnalyzer",
     "CorrelationAnalyzer",
     "CorrelationResult",
     "TrendResult",
+    "AnomalyDetector",
+    "AnomalyScore",
 ]
