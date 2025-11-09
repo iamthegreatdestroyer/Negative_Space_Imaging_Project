@@ -43,6 +43,10 @@ flake8>=6.1.0
 mypy>=1.4.1
 isort>=5.12.0
 
+# Database & Web (required by tests)
+sqlalchemy>=2.0.0
+Flask>=2.3.0
+
 # Security
 pyjwt>=2.6.0
 python-jose>=3.3.0
